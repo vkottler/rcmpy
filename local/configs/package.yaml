@@ -1,0 +1,10 @@
+---
+name: rcmpy
+version: "{{major}}.{{minor}}.{{patch}}"
+description: A configuration-file management system.
+entry: {{entry}}
+requirements: []
+dev_requirements:
+  - vcorelib
+  - setuptools-wrapper
+  - types-setuptools
