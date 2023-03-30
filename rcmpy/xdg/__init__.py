@@ -78,7 +78,7 @@ def user_bin(create: bool = True) -> Path:
 
 
 def iterate_directories(
-    data: str, sep: str = ":", create: bool = False
+    data: str, sep: str = _path.pathsep, create: bool = False
 ) -> Iterator[Path]:
     """
     Iterate over directories specified in a PATH-like variable (some
@@ -87,6 +87,11 @@ def iterate_directories(
 
     for item in data.split(sep):
         yield ensure_absolute(Path(item), create=create)
+
+
+def root_directory(*parts: str) -> Path:
+    """Create a path from the current file-system's root directory."""
+    return Path(_path.abspath(".").split(_path.sep)[0] + _path.sep, *parts)
 
 
 def data_directories(include_home: bool = True) -> Iterator[Path]:
@@ -101,10 +106,10 @@ def data_directories(include_home: bool = True) -> Iterator[Path]:
     yield from iterate_directories(
         environ.get(
             "XDG_DATA_DIRS",
-            ":".join(
+            _path.pathsep.join(
                 [
-                    str(Path(_path.sep, "share")),
-                    str(Path(_path.sep, "local", "share")),
+                    str(root_directory("share")),
+                    str(root_directory("local", "share")),
                 ]
             ),
         )
@@ -121,7 +126,7 @@ def config_directories(include_home: bool = True) -> Iterator[Path]:
         yield user_config()
 
     yield from iterate_directories(
-        environ.get("XDG_CONFIG_DIRS", str(Path(_path.sep, "etc", "xdg")))
+        environ.get("XDG_CONFIG_DIRS", str(root_directory("etc", "xdg")))
     )
 
 
