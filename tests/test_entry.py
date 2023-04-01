@@ -16,7 +16,7 @@ def test_entry_basic():
     """Test basic argument parsing."""
 
     args = [PKG_NAME]
-    assert rcmpy_main(args) == 0
+    assert rcmpy_main(args + ["-h"]) == 0
 
     with patch("rcmpy.entry.entry", side_effect=SystemExit(1)):
         assert rcmpy_main(args) != 0
