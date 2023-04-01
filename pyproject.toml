@@ -37,7 +37,6 @@ test = [
   "mypy",
   "black",
   "isort",
-  "vcorelib",
   "setuptools-wrapper",
   "types-setuptools"
 ]

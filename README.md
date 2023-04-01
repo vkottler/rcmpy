@@ -2,7 +2,7 @@
     =====================================
     generator=datazen
     version=3.1.0
-    hash=62160de8947917de5553c1825a1bdad7
+    hash=7fc24edd9b7b2970dad106d7fa968eb1
     =====================================
 -->
 
@@ -41,17 +41,23 @@ This package is tested on the following platforms:
 # Command-line Options
 
 ```
-$ ./venv3.10/bin/rcmpy -h
+$ ./venv3.8/bin/rcmpy -h
 
-usage: rcmpy [-h] [--version] [-v] [-C DIR]
+usage: rcmpy [-h] [--version] [-v] [-C DIR] {apply,use,noop} ...
 
 A configuration-file management system.
 
-options:
+optional arguments:
   -h, --help         show this help message and exit
   --version          show program's version number and exit
   -v, --verbose      set to increase logging verbosity
   -C DIR, --dir DIR  execute from a specific directory
+
+commands:
+  {apply,use,noop}   set of available commands
+    apply            apply any pending changes from the active data repository
+    use              set the directory to use as the rcmpy data repository
+    noop             command stub (does nothing)
 
 ```
 

@@ -3,8 +3,14 @@ name: rcmpy
 version: "{{major}}.{{minor}}.{{patch}}"
 description: A configuration-file management system.
 entry: {{entry}}
-requirements: []
-dev_requirements:
+requirements:
   - vcorelib
+dev_requirements:
   - setuptools-wrapper
   - types-setuptools
+
+commands:
+  - name: apply
+    description: apply any pending changes from the active data repository
+  - name: use
+    description: set the directory to use as the rcmpy data repository
