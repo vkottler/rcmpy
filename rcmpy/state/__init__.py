@@ -25,6 +25,7 @@ class State(_RcmpyDictCodec):
     """The top-level configuration object for the package."""
 
     directory: Path
+    variant: str
 
     def init(self, data: _JsonObject) -> None:
         """Perform implementation-specific initialization."""
@@ -36,6 +37,10 @@ class State(_RcmpyDictCodec):
         ).resolve()
 
         self.logger.info("Using directory '%s'.", self.directory)
+
+        self.variant: str = cast(str, data["variant"])
+        if self.variant:
+            self.logger.info("Using variant '%s'.", self.variant)
 
     def set_directory(self, path: Pathlike) -> None:
         """Set a new directory to use as the data repository."""
@@ -49,10 +54,17 @@ class State(_RcmpyDictCodec):
         self.directory = new_dir
         self.logger.info("Set directory to '%s'.", new_dir)
 
+    def set_variant(self, variant: str) -> None:
+        """Set a new variant value."""
+
+        if variant != self.variant:
+            self.variant = variant
+            self.logger.info("Updating variant to '%s'.", variant)
+
     def asdict(self) -> _JsonObject:
         """Obtain a dictionary representing this instance."""
 
-        return {"directory": str(self.directory)}
+        return {"directory": str(self.directory), "variant": self.variant}
 
 
 @contextmanager

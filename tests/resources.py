@@ -33,7 +33,7 @@ def resource(
 
 
 @contextmanager
-def scenario(name: str) -> Iterator[Path]:
+def scenario(name: str, variant: str = None) -> Iterator[Path]:
     """Ensure a specific test scenario is set up for execution."""
 
     path = resource("scenarios", name)
@@ -41,4 +41,9 @@ def scenario(name: str) -> Iterator[Path]:
     # Use a temporary directory for state.
     with override_environ_tempdir("XDG_STATE_HOME"):
         assert rcmpy_main([PKG_NAME, "use", str(path)]) == 0
+
+        # Set the variant if it was provided.
+        if variant is not None:
+            assert rcmpy_main([PKG_NAME, "variant", variant]) == 0
+
         yield path
