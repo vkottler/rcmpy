@@ -8,4 +8,4 @@ properties:
 
   variant:
     type: string
-    default: ""
+    default: "default"

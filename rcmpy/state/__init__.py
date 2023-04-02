@@ -54,10 +54,12 @@ class State(_RcmpyDictCodec):
         self.directory = new_dir
         self.logger.info("Set directory to '%s'.", new_dir)
 
-    def set_variant(self, variant: str) -> None:
+    def set_variant(self, variant: str = None) -> None:
         """Set a new variant value."""
 
-        if variant != self.variant:
+        if not variant:
+            self.logger.info("Current variant: '%s'.", self.variant)
+        elif variant != self.variant:
             self.variant = variant
             self.logger.info("Updating variant to '%s'.", variant)
 

@@ -11,6 +11,7 @@ from pathlib import Path
 from vcorelib.args import CommandFunction as _CommandFunction
 
 # internal
+from rcmpy.commands.common import add_default_flag
 from rcmpy.paths import default_config_directory
 from rcmpy.state import load_state
 
@@ -31,12 +32,7 @@ def use_cmd(args: _Namespace) -> int:
 def add_use_cmd(parser: _ArgumentParser) -> _CommandFunction:
     """Add use-command arguments to its parser."""
 
-    parser.add_argument(
-        "-d",
-        "--default",
-        action="store_true",
-        help="sets the directory back to the package default",
-    )
+    add_default_flag(parser)
 
     parser.add_argument(
         "directory", type=Path, nargs="?", help="the directory to use"

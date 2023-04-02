@@ -4,6 +4,7 @@ version: "{{major}}.{{minor}}.{{patch}}"
 description: A configuration-file management system.
 entry: {{entry}}
 requirements:
+  - datazen
   - vcorelib
 dev_requirements:
   - setuptools-wrapper
