@@ -2,7 +2,7 @@
     =====================================
     generator=datazen
     version=3.1.0
-    hash=69570046b0ce602c62d5d9c8831c75d9
+    hash=dde35c48192e3d587fd62db12dcf92bb
     =====================================
 -->
 
@@ -65,7 +65,7 @@ examples to the community, etc.
 This package attempts to adhere to the
 [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html).
 It keeps stateful formation that needs to persist between command invocations
-in a `rcmpy` sub-directory in the user-state directory controlled
+in a `rcmpy` sub-directory of the user-state directory controlled
 by `XDG_STATE_HOME` (or the default: `$HOME/.local/state`).
 
 One tracked piece of stateful information is the location of the current
@@ -104,12 +104,15 @@ $ rcmpy use
 rcmpy.state                          - INFO   - Using directory '/home/vkottler/.config/rcmpy/default'.
 ```
 
-4. Begin setting up your data repository in this location, or:
-   1. Download (or `git clone`) your data repository to that default location.
+4. Begin setting up your [data repository](md/data_repository.md) in this
+location, or:
+   1. Download (or `git clone`) one to that default location.
    1. Create a [symbolic link](https://en.wikipedia.org/wiki/Symbolic_link) at
-   that location, pointing to your data repository.
+   that location, pointing to one.
    1. Run `rcmpy use <path>` to point `rcmpy` at
-   an existing data repository at any arbitrary location.
+   an existing one at any arbitrary location.
+5. Run `rcmpy apply` to perform tasks specified in the
+[top-level configuration file](md/data_repository.md#top-level-configuration).
 
 # Command-line Options
 
