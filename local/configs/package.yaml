@@ -14,3 +14,5 @@ commands:
     description: apply any pending changes from the active data repository
   - name: use
     description: set the directory to use as the rcmpy data repository
+  - name: variant
+    description: set the variant of configuration data to use

@@ -15,7 +15,7 @@ def test_apply_command_basic():
 
     args = [PKG_NAME, "apply"]
 
-    with scenario("empty"):
+    with scenario("empty", variant="test"):
         assert rcmpy_main(args) != 0
 
     with scenario("simple"):
