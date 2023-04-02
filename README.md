@@ -2,7 +2,7 @@
     =====================================
     generator=datazen
     version=3.1.0
-    hash=fe3e09e0d89218f917b0f128f402465c
+    hash=69570046b0ce602c62d5d9c8831c75d9
     =====================================
 -->
 
@@ -64,7 +64,7 @@ examples to the community, etc.
 
 This package attempts to adhere to the
 [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html).
-It keeps stateful information that needs to persist between command invocations
+It keeps stateful formation that needs to persist between command invocations
 in a `rcmpy` sub-directory in the user-state directory controlled
 by `XDG_STATE_HOME` (or the default: `$HOME/.local/state`).
 
@@ -73,6 +73,43 @@ One tracked piece of stateful information is the location of the current
 command), it checks a `rcmpy/default` sub-directory in the
 user-config directory controlled by `XDG_CONFIG_HOME` (or the default:
 `$HOME/.config`).
+
+## System Requirements
+
+1. It is assumed that the system has a [Python](https://www.python.org/)
+executable and [pip](https://pypi.org/project/pip/) is available to it as
+an installed package (can be checked with: `python[3][.exe] -m pip --version`
+or `pip[3][.exe] --version`).
+2. A mechanism to obtain a [data repository](md/data_repository.md) via a
+network connection, if one won't be created from scratch (e.g. a
+[git](https://git-scm.com/) client).
+
+## Installation and Setup
+
+1. Install the package with `pip[3][.exe] --user rcmpy` or
+`python[3][.exe] -m pip --user rcmpy`.
+1. Test that `rcmpy` is now a shell command with
+`rcmpy --version`.
+   1. If not, you may need to invoke
+   `rcmpy` directly from `$HOME/.local/bin` or
+   `%APPDATA%\Python`.
+(see the
+[pip documentation](https://pip.pypa.io/en/stable/user_guide/?highlight=--user#user-installs)
+for more info).
+1. Run `rcmpy use` to view the default
+[data repository](md/data_repository.md) location (printed to the console):
+
+```
+$ rcmpy use
+rcmpy.state                          - INFO   - Using directory '/home/vkottler/.config/rcmpy/default'.
+```
+
+4. Begin setting up your data repository in this location, or:
+   1. Download (or `git clone`) your data repository to that default location.
+   1. Create a [symbolic link](https://en.wikipedia.org/wiki/Symbolic_link) at
+   that location, pointing to your data repository.
+   1. Run `rcmpy use <path>` to point `rcmpy` at
+   an existing data repository at any arbitrary location.
 
 # Command-line Options
 
