@@ -3,6 +3,7 @@ A module implementing a basic environment interface.
 """
 
 # built-in
+from contextlib import ExitStack
 from typing import Optional
 
 # third-party
@@ -18,11 +19,12 @@ from rcmpy.state import State
 class BaseEnvironment(LoggerMixin):
     """A class implementing this package's base runtime environment."""
 
-    def __init__(self, state: State) -> None:
+    def __init__(self, state: State, stack: ExitStack) -> None:
         """Initialize this instance."""
 
         super().__init__()
         self.state = state
+        self.stack = stack
         self._config: Optional[Config] = None
 
         config_base = state.directory.joinpath(PKG_NAME)

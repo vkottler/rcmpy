@@ -14,7 +14,7 @@ from vcorelib.dict import limited
 
 # internal
 from rcmpy import PKG_NAME
-from rcmpy.xdg import user_config, user_state
+from rcmpy.xdg import user_cache, user_config, user_state
 
 
 def default_state_directory() -> Path:
@@ -25,6 +25,11 @@ def default_state_directory() -> Path:
 def default_config_directory() -> Path:
     """Returns the default config directory used by the package."""
     return user_config(PKG_NAME, "default")
+
+
+def default_cache_directory() -> Path:
+    """Returns the default cache directory used by the package."""
+    return user_cache(PKG_NAME)
 
 
 @contextmanager

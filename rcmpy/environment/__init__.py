@@ -3,7 +3,7 @@ A module implementing the package's runtime environment.
 """
 
 # built-in
-from contextlib import contextmanager
+from contextlib import ExitStack, contextmanager
 from typing import Iterator
 
 # third-party
@@ -24,5 +24,7 @@ def load_environment(
 ) -> Iterator[Environment]:
     """A wrapper for loading an environment with default state data."""
 
-    with load_state(root=root, name=name) as state:
-        yield Environment(state)
+    with ExitStack() as stack:
+        yield Environment(
+            stack.enter_context(load_state(root=root, name=name)), stack
+        )

@@ -1,2 +1,2 @@
 datazen
-vcorelib
+vcorelib>=1.4.1

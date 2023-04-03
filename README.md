@@ -1,8 +1,8 @@
 <!--
     =====================================
     generator=datazen
-    version=3.1.0
-    hash=dde35c48192e3d587fd62db12dcf92bb
+    version=3.1.1
+    hash=aea24173d593fa8cbcbaed8aa65e8171
     =====================================
 -->
 
@@ -119,7 +119,7 @@ location, or:
 ```
 $ ./venv3.8/bin/rcmpy -h
 
-usage: rcmpy [-h] [--version] [-v] [-C DIR] {apply,use,variant,noop} ...
+usage: rcmpy [-h] [--version] [-v] [-C DIR] {apply,use,variant,watch,noop} ...
 
 A configuration-file management system.
 
@@ -130,12 +130,14 @@ optional arguments:
   -C DIR, --dir DIR     execute from a specific directory
 
 commands:
-  {apply,use,variant,noop}
+  {apply,use,variant,watch,noop}
                         set of available commands
     apply               apply any pending changes from the active data
                         repository
     use                 set the directory to use as the rcmpy data repository
     variant             set the variant of configuration data to use
+    watch               do a task whenever a file in a specified directory
+                        changes
     noop                command stub (does nothing)
 
 ```
@@ -175,13 +177,33 @@ optional arguments:
 ```
 $ ./venv3.8/bin/rcmpy variant -h
 
-usage: rcmpy variant [-h] variant
+usage: rcmpy variant [-h] [-d] [variant]
 
 positional arguments:
-  variant     new variant to use
+  variant        new variant to use
 
 optional arguments:
-  -h, --help  show this help message and exit
+  -h, --help     show this help message and exit
+  -d, --default  sets the directory back to the package default
+
+```
+
+### `watch`
+
+```
+$ ./venv3.8/bin/rcmpy watch -h
+
+usage: rcmpy watch [-h] [-p POLL_RATE] [-s] directory cmd [cmd ...]
+
+positional arguments:
+  directory             directory to watch for file changes
+  cmd                   command to run
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -p POLL_RATE, --poll-rate POLL_RATE
+                        poll period in seconds (default: 0.1s)
+  -s, --single-pass     only run a single iteration
 
 ```
 

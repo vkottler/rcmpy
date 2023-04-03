@@ -24,21 +24,30 @@ class TemplateEnvironment(BaseEnvironment):
         if not hasattr(self, "jinja"):
             template_root = self.state.directory.joinpath("templates")
 
+            template_dirs = [
+                x
+                for x in [
+                    template_root.joinpath(self.state.variant),
+                    template_root.joinpath("common"),
+                ]
+                if x.is_dir()
+            ]
+
             # Prefer variant templates, if the variant template-directory
             # exists.
             self.jinja = environment(
                 loader=FileSystemLoader(
-                    [
-                        x
-                        for x in [
-                            template_root.joinpath(self.state.variant),
-                            template_root.joinpath("common"),
-                        ]
-                        if x.is_dir()
-                    ],
+                    template_dirs,
                     followlinks=True,
                 )
             )
 
+            # Tasks to do:
+            # - split into two kinds of files, literal files and actual jinja
+            #   templates (check for .j2 extension)
+            # - find the full, absolute paths of the template objects
+            # - add the template dirs to the template file-info cache
+            # - use vcorelib file-info cache to figure out which templates are
+            #   new or changed (log this?)
             for template in self.jinja.list_templates():
                 print(template)
