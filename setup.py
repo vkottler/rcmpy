@@ -1,6 +1,6 @@
 # =====================================
 # generator=datazen
-# version=3.1.0
+# version=3.1.2
 # hash=dc0d9f835ecbdaf7ba7d62dc617acb8d
 # =====================================
 
