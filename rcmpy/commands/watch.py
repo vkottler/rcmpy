@@ -13,6 +13,7 @@ from pathlib import Path
 # third-party
 from vcorelib.args import CommandFunction as _CommandFunction
 from vcorelib.asyncio import run_handle_stop
+from vcorelib.asyncio.cli import run_command, run_shell
 from vcorelib.paths.info_cache import FileChanged, file_info_cache
 
 # internal
@@ -26,8 +27,17 @@ def watch_cache() -> Path:
     return default_cache_directory().joinpath(f"watch_cache-{getpid()}.json")
 
 
+async def command(*args: str, shell: bool = False) -> int:
+    """Run a subprocess and return the return code."""
+
+    runner = run_shell if shell else run_command
+    proc = await runner(LOG, *args)
+    assert proc.returncode is not None
+    return proc.returncode
+
+
 async def entry(stop_sig: Event, args: _Namespace) -> int:
-    """TODO."""
+    """The async entry-point for the watch command."""
 
     cache_file = watch_cache()
 
@@ -47,7 +57,7 @@ async def entry(stop_sig: Event, args: _Namespace) -> int:
 
             if count > 0:
                 # Run the command, return True if it exits 0.
-                print(args.cmd)
+                await command(*args.cmd, shell=args.shell)
                 count = 0
 
             if args.single_pass:
@@ -81,7 +91,10 @@ def add_watch_cmd(parser: _ArgumentParser) -> _CommandFunction:
         help="poll period in seconds (default: %(default)ss)",
     )
     parser.add_argument(
-        "-s",
+        "-s", "--shell", action="store_true", help="set to run a shell command"
+    )
+    parser.add_argument(
+        "-i",
         "--single-pass",
         action="store_true",
         help="only run a single iteration",

@@ -2,7 +2,7 @@
     =====================================
     generator=datazen
     version=3.1.2
-    hash=aea24173d593fa8cbcbaed8aa65e8171
+    hash=b7228d3f3271a3aac0a66ab52bf99684
     =====================================
 -->
 
@@ -193,7 +193,7 @@ optional arguments:
 ```
 $ ./venv3.8/bin/rcmpy watch -h
 
-usage: rcmpy watch [-h] [-p POLL_RATE] [-s] directory cmd [cmd ...]
+usage: rcmpy watch [-h] [-p POLL_RATE] [-s] [-i] directory cmd [cmd ...]
 
 positional arguments:
   directory             directory to watch for file changes
@@ -203,7 +203,8 @@ optional arguments:
   -h, --help            show this help message and exit
   -p POLL_RATE, --poll-rate POLL_RATE
                         poll period in seconds (default: 0.1s)
-  -s, --single-pass     only run a single iteration
+  -s, --shell           set to run a shell command
+  -i, --single-pass     only run a single iteration
 
 ```
 
