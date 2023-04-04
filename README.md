@@ -2,11 +2,11 @@
     =====================================
     generator=datazen
     version=3.1.2
-    hash=b7228d3f3271a3aac0a66ab52bf99684
+    hash=e6c457784db73e957b3b0da662d10294
     =====================================
 -->
 
-# rcmpy ([0.1.0](https://pypi.org/project/rcmpy/))
+# rcmpy ([0.2.0](https://pypi.org/project/rcmpy/))
 
 [![python](https://img.shields.io/pypi/pyversions/rcmpy.svg)](https://pypi.org/project/rcmpy/)
 ![Build Status](https://github.com/vkottler/rcmpy/workflows/Python%20Package/badge.svg)
