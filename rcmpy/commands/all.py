@@ -1,7 +1,7 @@
 # =====================================
 # generator=datazen
-# version=3.1.0
-# hash=1a37f6440c7e2e970222817d08f27c24
+# version=3.1.2
+# hash=e990bc9fe3294af3d40349e7b0627ad4
 # =====================================
 
 """
@@ -19,6 +19,7 @@ from vcorelib.args import CommandRegister as _CommandRegister
 from rcmpy.commands.apply import add_apply_cmd
 from rcmpy.commands.use import add_use_cmd
 from rcmpy.commands.variant import add_variant_cmd
+from rcmpy.commands.watch import add_watch_cmd
 
 
 def commands() -> _List[_Tuple[str, str, _CommandRegister]]:
@@ -39,6 +40,11 @@ def commands() -> _List[_Tuple[str, str, _CommandRegister]]:
             "variant",
             "set the variant of configuration data to use",
             add_variant_cmd,
+        ),
+        (
+            "watch",
+            "do a task whenever a file in a specified directory changes",
+            add_watch_cmd,
         ),
         ("noop", "command stub (does nothing)", lambda _: lambda _: 0),
     ]

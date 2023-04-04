@@ -33,6 +33,7 @@ renders:
       - commands-help-apply
       - commands-help-use
       - commands-help-variant
+      - commands-help-watch
 
   - name: data_repository.md
     output_dir: "md"

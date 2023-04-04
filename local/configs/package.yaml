@@ -4,7 +4,8 @@ version: "{{major}}.{{minor}}.{{patch}}"
 description: A configuration-file management system.
 entry: {{entry}}
 requirements:
-  - vcorelib
+  - datazen
+  - vcorelib>=1.5.0
 dev_requirements:
   - setuptools-wrapper
   - types-setuptools
@@ -16,3 +17,5 @@ commands:
     description: set the directory to use as the rcmpy data repository
   - name: variant
     description: set the variant of configuration data to use
+  - name: watch
+    description: do a task whenever a file in a specified directory changes

@@ -10,6 +10,7 @@ from typing import Iterator
 
 # third-party
 import pkg_resources
+from vcorelib.paths.context import in_dir
 
 # module under test
 from rcmpy import PKG_NAME
@@ -40,10 +41,11 @@ def scenario(name: str, variant: str = None) -> Iterator[Path]:
 
     # Use a temporary directory for state.
     with override_environ_tempdir("XDG_STATE_HOME"):
-        assert rcmpy_main([PKG_NAME, "use", str(path)]) == 0
+        with in_dir(path):
+            assert rcmpy_main([PKG_NAME, "use", str(path)]) == 0
 
-        # Set the variant if it was provided.
-        if variant is not None:
-            assert rcmpy_main([PKG_NAME, "variant", variant]) == 0
+            # Set the variant if it was provided.
+            if variant is not None:
+                assert rcmpy_main([PKG_NAME, "variant", variant]) == 0
 
-        yield path
+            yield path
