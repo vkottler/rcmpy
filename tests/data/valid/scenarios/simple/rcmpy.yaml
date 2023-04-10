@@ -1,3 +1,9 @@
 ---
 files:
   - template: test.txt
+
+  - template: dynamic.txt
+    extra_templates: [a.txt, b.txt, c.txt]
+
+  - template: basic.txt
+    link: false

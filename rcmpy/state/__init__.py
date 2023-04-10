@@ -12,7 +12,7 @@ from typing import Iterator, cast
 # third-party
 from vcorelib.dict.cache import FileCache
 from vcorelib.io.types import JsonObject as _JsonObject
-from vcorelib.paths import Pathlike, normalize
+from vcorelib.paths import Pathlike, normalize, rel
 
 # internal
 from rcmpy.paths import default_config_directory, default_state_directory
@@ -36,7 +36,7 @@ class State(_RcmpyDictCodec):
             cast(str, data.get("directory", default_config_directory()))
         ).resolve()
 
-        self.logger.info("Using directory '%s'.", self.directory)
+        self.logger.info("Using directory '%s'.", rel(self.directory))
 
         self.variant: str = cast(str, data["variant"])
         if self.variant:
@@ -48,11 +48,13 @@ class State(_RcmpyDictCodec):
         new_dir = normalize(path).resolve()
 
         if new_dir == self.directory:
-            self.logger.info("New directory '%s' same as current.", new_dir)
+            self.logger.info(
+                "New directory '%s' same as current.", rel(new_dir)
+            )
             return
 
         self.directory = new_dir
-        self.logger.info("Set directory to '%s'.", new_dir)
+        self.logger.info("Set directory to '%s'.", rel(new_dir))
 
     def set_variant(self, variant: str = None) -> None:
         """Set a new variant value."""

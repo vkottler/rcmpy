@@ -4,15 +4,16 @@ An environment extension for working with template files.
 
 # built-in
 from pathlib import Path
-from typing import Dict, NamedTuple, Optional, Set
+from typing import Dict, NamedTuple, Optional, Set, Tuple
 
 # third-party
 from datazen.templates import environment
-from jinja2 import FileSystemLoader, Template
+from jinja2 import Environment, FileSystemLoader, Template
 from vcorelib.paths.info import FileChangeEvent
 from vcorelib.paths.info_cache import FileChanged, file_info_cache
 
 # internal
+from rcmpy.config import ManagedFile
 from rcmpy.environment.base import BaseEnvironment
 
 
@@ -23,7 +24,21 @@ class EnvTemplate(NamedTuple):
     """
 
     name: str
+    path: Path
+    subdir: str
     template: Optional[Template] = None
+
+
+def template_name(name: str) -> Tuple[bool, str]:
+    """
+    Determine if a name is a template and remove the template suffix if
+    applicable.
+    """
+
+    is_template = name.endswith(".j2")
+    if is_template:
+        name = name[:-3]
+    return is_template, name
 
 
 class TemplateEnvironment(BaseEnvironment):
@@ -33,36 +48,49 @@ class TemplateEnvironment(BaseEnvironment):
     """
 
     templates: Dict[Path, EnvTemplate]
+    templates_by_name: Dict[str, EnvTemplate]
+    jinja: Environment
 
-    def _load_templates(self) -> Set[str]:
+    def is_updated(self, file: ManagedFile) -> bool:
+        """
+        Determine if a managed file is updated or not (based on template
+        changes).
+        """
+        return file.template in self.updated_template_names or any(
+            x in self.updated_template_names for x in file.extra_templates
+        )
+
+    def _load_templates(self) -> None:
         """Load template information to the environment."""
 
         # Keep track of templates by name.
         self.templates = {}
-        template_names: Set[str] = set()
+        self.templates_by_name = {}
         for name in self.jinja.list_templates():
             obj = self.jinja.get_template(name)
 
             # We know all templates are files.
             assert obj.filename is not None
 
+            is_template, name = template_name(name)
+
             # Keep track of template paths and their templates.
-            self.templates[Path(obj.filename).resolve()] = EnvTemplate(
+            path = Path(obj.filename).resolve()
+
+            new = EnvTemplate(
                 name,
-                obj if name.endswith("j2") else None,
+                path,
+                path.parent.name,
+                obj if is_template else None,
             )
-            template_names.add(name)
+            self.templates[path] = new
+            self.templates_by_name[name] = new
 
-        return template_names
-
-    def _init_loaded(self) -> bool:
-        """Called during initialization if a valid configuration is loaded."""
-
-        result = super()._init_loaded()
-
-        # Ensure double initialization isn't possible (use an arbitrary
-        # attribute set here to detect this).
-        assert not hasattr(self, "jinja")
+    def _init_templates(self, template_names: Set[str]) -> bool:
+        """
+        Initialize the template environment based on a set of template names
+        that may be relevant to some task.
+        """
 
         template_root = self.state.directory.joinpath("templates")
 
@@ -82,58 +110,39 @@ class TemplateEnvironment(BaseEnvironment):
             loader=FileSystemLoader(candidates, followlinks=True)
         )
 
-        # Check if all templates called out by the configuration were found.
-        template_names = self._load_templates()
-        for name in self.config.templates:
-            if name not in template_names:
-                self.logger.error("Template for '%s' not found!", name)
-                return False
-
-        self.updated_templates: Set[Path] = set()
+        self._load_templates()
 
         def poll_cb(change: FileChanged) -> bool:
             """Aggregate paths of templates that have been updated."""
 
-            poll_result = True
-
-            # If a file was removed, confirm it's not a template that's still
-            # needed.
-            if change.event is FileChangeEvent.REMOVED:
-                assert change.old is not None
-                if change.old.path in self.templates:
-                    template = self.templates[change.old.path]
-                    if template.name in self.config.templates:
-                        # Cause environment initialization to fail.
-                        nonlocal result
-                        result = False
-
-                        # Log the error and don't approve this change event.
-                        self.logger.error(
-                            "Template '%s' (%s) was removed but is needed!",
-                            template.name,
-                            change.old.path,
-                        )
-                        poll_result = False
-
-            else:
+            if change.event is not FileChangeEvent.REMOVED:
                 assert change.new is not None
+                path = change.new.path
+
+                subdir = path.parent.name
+                _, name = template_name(path.name)
 
                 # Don't acknowledge changes to any files that aren't active
                 # templates.
-                if change.new.path not in self.templates:
-                    poll_result = False
-                else:
-                    template = self.templates[change.new.path]
+                if (
+                    name not in template_names
+                    or name not in self.templates_by_name
+                ):
+                    return False
 
-                    # Acknowledge this template change if the detected template
-                    # is used by the current configuration.
-                    poll_result = template.name in self.config.templates
-                    if poll_result:
-                        self.updated_templates.add(change.new.path)
+                template = self.templates_by_name[name]
 
-            return poll_result
+                # If a version of a template that's not currently used has
+                # changed, don't acknowledge the change either.
+                if subdir != template.subdir:
+                    return False
 
-        self.template_changes = self.stack.enter_context(
+                self.updated_templates.add(path)
+                self.updated_template_names.add(self.templates[path].name)
+
+            return True
+
+        template_changes = self.stack.enter_context(
             file_info_cache(
                 self._cache.joinpath("templates.json"),
                 poll_cb,
@@ -143,13 +152,30 @@ class TemplateEnvironment(BaseEnvironment):
 
         # Poll template directories.
         for candidate in candidates:
-            self.template_changes.poll_directory(candidate)
+            template_changes.poll_directory(candidate)
 
         # Log info about detected template changes.
         for changed in self.updated_templates:
+            template = self.templates[changed]
             self.logger.info(
-                "Detected change for template '%s'.",
-                self.templates[changed].name,
+                "Detected change for template '%s' (%s).",
+                template.name,
+                template.subdir,
             )
 
-        return result
+        return True
+
+    def _init_loaded(self) -> bool:
+        """Called during initialization if a valid configuration is loaded."""
+
+        result = super()._init_loaded()
+
+        # Ensure double initialization isn't possible (use an arbitrary
+        # attribute set here to detect this).
+        assert not hasattr(self, "jinja")
+
+        # Templates that are newly updated on this iteration.
+        self.updated_templates: Set[Path] = set()
+        self.updated_template_names: Set[str] = set()
+
+        return result and self._init_templates(self.config.templates)

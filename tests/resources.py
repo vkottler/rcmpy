@@ -4,12 +4,12 @@ A module for working with test data.
 
 # built-in
 from contextlib import ExitStack, contextmanager
-from os.path import join
+from logging import getLogger
 from pathlib import Path
 from typing import Iterator
 
 # third-party
-import pkg_resources
+from vcorelib.paths import rel
 from vcorelib.paths.context import in_dir
 
 # module under test
@@ -18,19 +18,36 @@ from rcmpy.entry import main as rcmpy_main
 from rcmpy.paths import override_environ_tempdir
 
 
-def resource(
-    resource_name: str, *parts: str, valid: bool = True, pkg: str = __name__
-) -> Path:
+def resource(resource_name: str, *parts: str, valid: bool = True) -> Path:
     """Locate the path to a test resource."""
 
-    return Path(
-        pkg_resources.resource_filename(
-            pkg,
-            join(
-                "data", "valid" if valid else "invalid", resource_name, *parts
-            ),
-        )
+    return Path(__file__).parent.joinpath(
+        "data", "valid" if valid else "invalid", resource_name, *parts
     )
+
+
+LOG = getLogger(__name__)
+
+
+@contextmanager
+def file_removed(path: Path) -> Iterator[None]:
+    """
+    Remove a file with a managed context (restore the file when complete).
+    """
+
+    with path.open("rb") as path_fd:
+        contents = path_fd.read()
+
+    path.unlink()
+    assert not path.is_file()
+    LOG.warning("Removed '%s'.", rel(path))
+
+    try:
+        yield
+    finally:
+        with path.open("wb") as path_fd:
+            path_fd.write(contents)
+        LOG.warning("Restored '%s'.", rel(path))
 
 
 @contextmanager
