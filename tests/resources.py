@@ -3,7 +3,7 @@ A module for working with test data.
 """
 
 # built-in
-from contextlib import contextmanager
+from contextlib import ExitStack, contextmanager
 from os.path import join
 from pathlib import Path
 from typing import Iterator
@@ -39,13 +39,19 @@ def scenario(name: str, variant: str = None) -> Iterator[Path]:
 
     path = resource("scenarios", name)
 
-    # Use a temporary directory for state.
-    with override_environ_tempdir("XDG_STATE_HOME"):
-        with in_dir(path):
-            assert rcmpy_main([PKG_NAME, "use", str(path)]) == 0
+    with ExitStack() as stack:
+        # Use a temporary directory for state and cache.
+        for var in ["XDG_STATE_HOME", "XDG_CACHE_HOME"]:
+            stack.enter_context(override_environ_tempdir(var))
 
-            # Set the variant if it was provided.
-            if variant is not None:
-                assert rcmpy_main([PKG_NAME, "variant", variant]) == 0
+        # Use the scenario directory as the current directory.
+        stack.enter_context(in_dir(path))
 
-            yield path
+        # Updated the config directory to the one for the test scenario.
+        assert rcmpy_main([PKG_NAME, "use", str(path)]) == 0
+
+        # Set the variant if it was provided.
+        if variant is not None:
+            assert rcmpy_main([PKG_NAME, "variant", variant]) == 0
+
+        yield path

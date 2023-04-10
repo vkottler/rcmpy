@@ -13,6 +13,7 @@ from vcorelib.logging import LoggerMixin
 # internal
 from rcmpy import PKG_NAME
 from rcmpy.config import Config
+from rcmpy.paths import default_cache_directory
 from rcmpy.state import State
 
 
@@ -26,6 +27,7 @@ class BaseEnvironment(LoggerMixin):
         self.state = state
         self.stack = stack
         self._config: Optional[Config] = None
+        self._cache = default_cache_directory()
 
         config_base = state.directory.joinpath(PKG_NAME)
 
@@ -44,10 +46,15 @@ class BaseEnvironment(LoggerMixin):
             assert len(config_candidates) == 1, config_candidates
             self._config = Config.decode(config_candidates[0])
             self.logger.info("Loaded config '%s'.", config_candidates[0])
-            self._init_loaded()
 
-    def _init_loaded(self) -> None:
+            # Consider the config not loaded if initialization fails.
+            if not self._init_loaded():
+                self.logger.info("Initialization failed!")
+                self._config = None
+
+    def _init_loaded(self) -> bool:
         """Called during initialization if a valid configuration is loaded."""
+        return True
 
     @property
     def config_loaded(self) -> bool:
