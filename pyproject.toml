@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta:__legacy__"
 
 [project]
 name = "rcmpy"
-version = "0.2.0"
+version = "0.3.0"
 description = "A configuration-file management system."
 readme = "README.md"
 requires-python = ">=3.7"
@@ -33,11 +33,11 @@ dynamic = ["dependencies"]
 test = [
   "pylint",
   "flake8",
-  "pytest",
-  "pytest-cov",
-  "mypy",
   "black",
+  "ruff",
+  "mypy",
   "isort",
+  "yamllint",
   "setuptools-wrapper",
   "types-setuptools"
 ]

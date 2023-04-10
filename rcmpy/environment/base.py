@@ -9,10 +9,12 @@ from typing import Optional
 # third-party
 from vcorelib.io.types import FileExtension
 from vcorelib.logging import LoggerMixin
+from vcorelib.paths import rel
 
 # internal
 from rcmpy import PKG_NAME
 from rcmpy.config import Config
+from rcmpy.paths import default_cache_directory
 from rcmpy.state import State
 
 
@@ -26,6 +28,10 @@ class BaseEnvironment(LoggerMixin):
         self.state = state
         self.stack = stack
         self._config: Optional[Config] = None
+        self._cache = default_cache_directory()
+
+        self._build = state.directory.joinpath("build")
+        self._build.mkdir(exist_ok=True)
 
         config_base = state.directory.joinpath(PKG_NAME)
 
@@ -42,12 +48,27 @@ class BaseEnvironment(LoggerMixin):
             )
         else:
             assert len(config_candidates) == 1, config_candidates
-            self._config = Config.decode(config_candidates[0])
-            self.logger.info("Loaded config '%s'.", config_candidates[0])
-            self._init_loaded()
+            self._config = Config.decode(
+                config_candidates[0], includes_key="includes"
+            )
+            self.logger.info("Loaded config '%s'.", rel(config_candidates[0]))
 
-    def _init_loaded(self) -> None:
+            # Ensure that any relative paths called out are relative to the
+            # root directory of the data repository.
+            self._config.update_root(state.directory)
+
+            # Consider the config not loaded if initialization fails.
+            #
+            # **Add this back in if initialization can actually fail.**
+            #
+            # if not self._init_loaded():
+            #     self.logger.info("Initialization failed!")
+            #     self._config = None
+            assert self._init_loaded()
+
+    def _init_loaded(self) -> bool:
         """Called during initialization if a valid configuration is loaded."""
+        return True
 
     @property
     def config_loaded(self) -> bool:
