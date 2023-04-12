@@ -25,6 +25,10 @@ def load_environment(
     """A wrapper for loading an environment with default state data."""
 
     with ExitStack() as stack:
-        yield Environment(
+        env = Environment(
             stack.enter_context(load_state(root=root, name=name)), stack
         )
+        yield env
+
+        # Ensure that the previous variant gets set.
+        env.state.previous["variant"] = env.state.variant

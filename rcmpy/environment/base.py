@@ -30,8 +30,8 @@ class BaseEnvironment(LoggerMixin):
         self._config: Optional[Config] = None
         self._cache = default_cache_directory()
 
-        self._build = state.directory.joinpath("build")
-        self._build.mkdir(exist_ok=True)
+        self.build = state.directory.joinpath("build")
+        self.build.mkdir(exist_ok=True)
 
         config_base = state.directory.joinpath(PKG_NAME)
 
