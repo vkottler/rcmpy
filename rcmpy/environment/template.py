@@ -92,17 +92,7 @@ class TemplateEnvironment(BaseEnvironment):
         that may be relevant to some task.
         """
 
-        template_root = self.state.directory.joinpath("templates")
-
-        candidates = [template_root.joinpath("common")]
-
-        # Only consider a 'variant' sub-directory if variant is set. Ensure
-        # that the candidate directory comes first.
-        if self.state.variant:
-            candidates.insert(0, template_root.joinpath(self.state.variant))
-
-        # Only consider directories that exist.
-        candidates = [x for x in candidates if x.is_dir()]
+        candidates = self.state.root_directories("templates")
 
         # Prefer variant templates, if the variant template-directory
         # exists.

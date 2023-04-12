@@ -9,3 +9,16 @@ properties:
   variant:
     type: string
     default: "default"
+
+  previous:
+    type: object
+    additionalProperties: false
+
+    properties:
+      variant:
+        type: string
+
+      configs:
+        type: object
+      variables:
+        type: object
