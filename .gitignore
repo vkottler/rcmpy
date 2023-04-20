@@ -13,4 +13,4 @@ htmlcov
 *-stubs
 coverage*.xml
 tags
-*-output
+*-out*

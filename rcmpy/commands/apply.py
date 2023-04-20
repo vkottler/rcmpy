@@ -16,7 +16,7 @@ from vcorelib.paths import rel
 from rcmpy.environment import Environment, load_environment
 
 
-def apply_env(env: Environment) -> int:
+def apply_env(args: _Namespace, env: Environment) -> int:
     """Apply pending changes from the environment."""
 
     result = 0
@@ -31,7 +31,7 @@ def apply_env(env: Environment) -> int:
         is_new = env.state.is_new()
 
         # Check if this file has any updated templates.
-        if is_new or env.is_updated(file):
+        if args.force or is_new or env.is_updated(file):
             template = env.templates_by_name[file.template]
 
             # If a template doesn't require rendering, use it as-is.
@@ -44,13 +44,14 @@ def apply_env(env: Environment) -> int:
                     path_fd.write(template.template.render(env.state.configs))
                     env.logger.info("Rendered '%s'.", rel(source))
 
-                # Update the output file.
-            file.update(source, env.logger)
+            # Update the output file.
+            if not args.dry_run:
+                file.update(source, env.logger)
 
     return result
 
 
-def apply_cmd(_: _Namespace) -> int:
+def apply_cmd(args: _Namespace) -> int:
     """Execute the apply command."""
 
     result = 1
@@ -58,12 +59,25 @@ def apply_cmd(_: _Namespace) -> int:
     with log_time(getLogger(__name__), "Command"):
         with load_environment() as env:
             if env.config_loaded:
-                result = apply_env(env)
+                result = apply_env(args, env)
 
     return result
 
 
-def add_apply_cmd(_: _ArgumentParser) -> _CommandFunction:
+def add_apply_cmd(parser: _ArgumentParser) -> _CommandFunction:
     """Add apply-command arguments to its parser."""
+
+    parser.add_argument(
+        "-f",
+        "--force",
+        action="store_true",
+        help="whether or not to forcibly render all outputs",
+    )
+    parser.add_argument(
+        "-d",
+        "--dry-run",
+        action="store_true",
+        help="whether or not to update output files",
+    )
 
     return apply_cmd

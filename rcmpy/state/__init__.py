@@ -33,6 +33,8 @@ class State(_RcmpyDictCodec):
     variant: str
     variables_new: bool
     configs_new: bool
+    manifest: Dict[str, Any]
+    manifest_new: bool
 
     def init(self, data: _JsonObject) -> None:
         """Perform implementation-specific initialization."""
@@ -64,13 +66,25 @@ class State(_RcmpyDictCodec):
         self.previous.setdefault("configs", {})
         self._load_configs()
 
+        # Manifest configuration.
+        self.manifest: Dict[str, Any] = cast(
+            Dict[str, Any], data.get("manifest", {})
+        )
+        self.manifest_new: bool = False
+
     def is_new(self) -> bool:
         """Determine if state has changed."""
         return (
             self.variant != self.previous["variant"]
             or self.variables_new
             or self.configs_new
+            or self.manifest_new
         )
+
+    def update_manifest(self, data: Dict[str, Any]) -> None:
+        """Set new manifest data."""
+        self.manifest_new = self.manifest != data
+        self.manifest = data
 
     def root_directories(self, subdir: str) -> List[Path]:
         """
@@ -107,6 +121,7 @@ class State(_RcmpyDictCodec):
                         require_success=True,
                         recurse=True,
                         includes_key="includes",
+                        expect_overwrite=True,
                         preprocessor=preprocessor,
                     ).data,
                     logger=self.logger,
@@ -130,6 +145,7 @@ class State(_RcmpyDictCodec):
                     require_success=True,
                     recurse=True,
                     includes_key="includes",
+                    expect_overwrite=True,
                 ).data,
                 logger=self.logger,
             )
@@ -171,6 +187,7 @@ class State(_RcmpyDictCodec):
             "directory": str(self.directory),
             "variant": self.variant,
             "previous": self.previous,
+            "manifest": self.manifest,
         }
 
 

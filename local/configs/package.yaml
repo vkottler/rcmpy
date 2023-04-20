@@ -5,7 +5,7 @@ description: A configuration-file management system.
 entry: {{entry}}
 requirements:
   - datazen
-  - vcorelib>=1.5.2
+  - vcorelib>=1.6.0
 dev_requirements:
   - setuptools-wrapper
   - types-setuptools
