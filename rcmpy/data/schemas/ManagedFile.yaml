@@ -10,7 +10,7 @@ properties:
   # Relative to the data-repository root.
   directory:
     type: string
-    default: rcmpy-output
+    default: rcmpy-out
 
   # Whether or not to create a symbolic link instead of a copy.
   link:

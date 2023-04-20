@@ -2,11 +2,11 @@
     =====================================
     generator=datazen
     version=3.1.2
-    hash=4e253e82b70bf6a2a6479e0620da720b
+    hash=d6cd0e307dd25044b7eb3a7adaf13b33
     =====================================
 -->
 
-# rcmpy ([1.0.0](https://pypi.org/project/rcmpy/))
+# rcmpy ([1.1.0](https://pypi.org/project/rcmpy/))
 
 [![python](https://img.shields.io/pypi/pyversions/rcmpy.svg)](https://pypi.org/project/rcmpy/)
 ![Build Status](https://github.com/vkottler/rcmpy/workflows/Python%20Package/badge.svg)
@@ -149,10 +149,12 @@ commands:
 ```
 $ ./venv3.8/bin/rcmpy apply -h
 
-usage: rcmpy apply [-h]
+usage: rcmpy apply [-h] [-f] [-d]
 
 optional arguments:
-  -h, --help  show this help message and exit
+  -h, --help     show this help message and exit
+  -f, --force    whether or not to forcibly render all outputs
+  -d, --dry-run  whether or not to update output files
 
 ```
 

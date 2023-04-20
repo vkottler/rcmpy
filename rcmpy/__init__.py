@@ -1,7 +1,7 @@
 # =====================================
 # generator=datazen
 # version=3.1.2
-# hash=de6d52cb7b3c576d64df05d995c59d25
+# hash=db6b75d059437ccfb73620d52efc9103
 # =====================================
 
 """
@@ -10,4 +10,4 @@ Useful defaults and other package metadata.
 
 DESCRIPTION = "A configuration-file management system."
 PKG_NAME = "rcmpy"
-VERSION = "1.0.0"
+VERSION = "1.1.0"
