@@ -86,7 +86,9 @@ class State(_RcmpyDictCodec):
         self.manifest_new = self.manifest != data
         self.manifest = data
 
-    def root_directories(self, subdir: str) -> List[Path]:
+    def root_directories(
+        self, subdir: str, common_first: bool = True
+    ) -> List[Path]:
         """
         Get up to a pair of directories from some sub-directory of the current
         root.
@@ -96,7 +98,10 @@ class State(_RcmpyDictCodec):
 
         candidates = [root.joinpath("common")]
         if self.variant:
-            candidates.insert(0, root.joinpath(self.variant))
+            if common_first:
+                candidates.append(root.joinpath(self.variant))
+            else:
+                candidates.insert(0, root.joinpath(self.variant))
 
         return [x for x in candidates if x.is_dir()]
 
@@ -124,6 +129,7 @@ class State(_RcmpyDictCodec):
                         expect_overwrite=True,
                         preprocessor=preprocessor,
                     ).data,
+                    expect_overwrite=True,
                     logger=self.logger,
                 )
 
@@ -147,6 +153,7 @@ class State(_RcmpyDictCodec):
                     includes_key="includes",
                     expect_overwrite=True,
                 ).data,
+                expect_overwrite=True,
                 logger=self.logger,
             )
 
