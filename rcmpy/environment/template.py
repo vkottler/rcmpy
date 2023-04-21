@@ -92,7 +92,10 @@ class TemplateEnvironment(BaseEnvironment):
         that may be relevant to some task.
         """
 
-        candidates = self.state.root_directories("templates")
+        # The variant's template directory takes precedence.
+        candidates = self.state.root_directories(
+            "templates", common_first=False
+        )
 
         # Prefer variant templates, if the variant template-directory
         # exists.
