@@ -28,6 +28,9 @@ def apply_env(args: _Namespace, env: Environment) -> int:
             env.logger.error("Template '%s' not found!", file.template)
             continue
 
+        if not file.platform:
+            continue
+
         is_new = env.state.is_new()
 
         # Check if this file has any updated templates.
