@@ -7,3 +7,10 @@ files:
 
   - template: basic.txt
     link: false
+
+  - template: linux.txt
+    platforms: [linux]
+  - template: darwin.txt
+    platforms: [darwin]
+  - template: win32.txt
+    platforms: [win32]

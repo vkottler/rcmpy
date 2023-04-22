@@ -7,6 +7,7 @@ from contextlib import suppress
 from dataclasses import dataclass
 from pathlib import Path
 from shutil import copyfile
+import sys
 from typing import Set
 
 # third-party
@@ -28,10 +29,17 @@ class ManagedFile:
 
     link: bool
 
+    platforms: Set[str]
+
     @property
     def output(self) -> Path:
         """Get the full output path."""
         return self.directory.joinpath(self.name)
+
+    @property
+    def platform(self) -> bool:
+        """Determine if the platform is correct for handling this file."""
+        return not self.platforms or sys.platform in self.platforms
 
     def update_root(self, root: Path) -> None:
         """

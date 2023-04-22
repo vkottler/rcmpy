@@ -45,6 +45,7 @@ class Config(_RcmpyDictCodec, _BasicDictCodec):
                 Path(expandvars(file["directory"])).expanduser(),
                 file.get("name", file["template"]),
                 file["link"],
+                set(file.get("platforms", [])),
             )
 
             # Keep track of all templates used in any file.
