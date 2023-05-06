@@ -17,6 +17,11 @@ properties:
     type: boolean
     default: true
 
+  # Whether or not the file should be executable.
+  executable:
+    type: boolean
+    default: false
+
   name:
     type: string
 

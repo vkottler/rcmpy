@@ -1,12 +1,14 @@
 ---
 files:
   - template: test.txt
+    executable: true
 
   - template: dynamic.txt
     extra_templates: [a.txt, b.txt, c.txt]
 
   - template: basic.txt
     link: false
+    executable: true
 
   - template: linux.txt
     platforms: [linux]

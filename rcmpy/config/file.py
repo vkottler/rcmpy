@@ -15,6 +15,12 @@ from vcorelib.logging import LoggerType
 from vcorelib.paths import rel
 
 
+def set_exec_flags(path: Path) -> None:
+    """Set the executable bits, but respect the 'read' bits."""
+    mode = path.stat().st_mode
+    path.chmod(mode | ((mode & 0o444) >> 2))
+
+
 @dataclass
 class ManagedFile:
     """
@@ -28,6 +34,7 @@ class ManagedFile:
     name: str
 
     link: bool
+    executable: bool
 
     platforms: Set[str]
 
@@ -72,5 +79,8 @@ class ManagedFile:
             output.symlink_to(source)
         else:
             copyfile(source, output)
+
+        if self.executable:
+            set_exec_flags(output)
 
         logger.info("'%s' -> '%s'.", rel(source), rel(output))

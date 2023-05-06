@@ -45,6 +45,7 @@ class Config(_RcmpyDictCodec, _BasicDictCodec):
                 Path(expandvars(file["directory"])).expanduser(),
                 file.get("name", file["template"]),
                 file["link"],
+                file["executable"],
                 set(file.get("platforms", [])),
             )
 
