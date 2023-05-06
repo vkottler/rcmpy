@@ -21,6 +21,8 @@ def apply_env(args: _Namespace, env: Environment) -> int:
 
     result = 0
 
+    is_new = env.state.is_new()
+
     for file in env.config.files:
         # Check if a template is found for this file.
         if file.template not in env.templates_by_name:
@@ -31,10 +33,8 @@ def apply_env(args: _Namespace, env: Environment) -> int:
         if not file.platform:
             continue
 
-        is_new = env.state.is_new()
-
         # Check if this file has any updated templates.
-        if args.force or is_new or env.is_updated(file):
+        if args.force or is_new or not file.present or env.is_updated(file):
             template = env.templates_by_name[file.template]
 
             # If a template doesn't require rendering, use it as-is.
@@ -44,7 +44,7 @@ def apply_env(args: _Namespace, env: Environment) -> int:
                 # Render the template to the build directory.
                 source = env.build.joinpath(file.template)
                 with source.open("w") as path_fd:
-                    path_fd.write(template.template.render(env.state.configs))
+                    path_fd.write(template.template.render(env.template_data))
                     env.logger.info("Rendered '%s'.", rel(source))
 
             # Update the output file.

@@ -37,6 +37,11 @@ class ManagedFile:
         return self.directory.joinpath(self.name)
 
     @property
+    def present(self) -> bool:
+        """Determine if this file is currently present in the file system."""
+        return self.output.is_file()
+
+    @property
     def platform(self) -> bool:
         """Determine if the platform is correct for handling this file."""
         return not self.platforms or sys.platform in self.platforms

@@ -54,7 +54,3 @@ class Config(_RcmpyDictCodec, _BasicDictCodec):
                 self.templates.add(template)
 
             self.files.append(new)
-
-    def asdict(self) -> _JsonObject:
-        """Obtain a dictionary representing this instance."""
-        return self.data

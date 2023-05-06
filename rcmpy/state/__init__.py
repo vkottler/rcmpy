@@ -53,6 +53,7 @@ class State(_RcmpyDictCodec):
 
         data.setdefault("previous", {})
         self.previous: Dict[str, Any] = data["previous"]  # type: ignore
+        self.previous.setdefault("variant", "default")
 
         # Variables.
         self.variables: Dict[str, Any] = {}
