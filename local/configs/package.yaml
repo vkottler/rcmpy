@@ -13,6 +13,8 @@ dev_requirements:
 commands:
   - name: apply
     description: apply any pending changes from the active data repository
+  - name: dump
+    description: dump template data to stdout as JSON
   - name: use
     description: set the directory to use as the rcmpy data repository
   - name: variant

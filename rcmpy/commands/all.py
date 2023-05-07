@@ -1,7 +1,7 @@
 # =====================================
 # generator=datazen
 # version=3.1.2
-# hash=e990bc9fe3294af3d40349e7b0627ad4
+# hash=2b9927a9d538a17ed80c0411b8d02364
 # =====================================
 
 """
@@ -17,6 +17,7 @@ from vcorelib.args import CommandRegister as _CommandRegister
 
 # internal
 from rcmpy.commands.apply import add_apply_cmd
+from rcmpy.commands.dump import add_dump_cmd
 from rcmpy.commands.use import add_use_cmd
 from rcmpy.commands.variant import add_variant_cmd
 from rcmpy.commands.watch import add_watch_cmd
@@ -30,6 +31,11 @@ def commands() -> _List[_Tuple[str, str, _CommandRegister]]:
             "apply",
             "apply any pending changes from the active data repository",
             add_apply_cmd,
+        ),
+        (
+            "dump",
+            "dump template data to stdout as JSON",
+            add_dump_cmd,
         ),
         (
             "use",

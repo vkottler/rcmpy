@@ -3,7 +3,7 @@
 default_dirs: false
 
 commands:
-{% for command in ["apply", "use", "variant", "watch"] %}
+{% for command in ["apply", "dump", "use", "variant", "watch"] %}
   - name: help-{{command}}
     command: "./venv{{python_version}}/bin/{{entry}}"
     force: true

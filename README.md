@@ -2,11 +2,11 @@
     =====================================
     generator=datazen
     version=3.1.2
-    hash=24348be5017ba83b48349d0ddd2389e4
+    hash=c1786731fe10b81b6b18afa242c53257
     =====================================
 -->
 
-# rcmpy ([1.3.0](https://pypi.org/project/rcmpy/))
+# rcmpy ([1.4.0](https://pypi.org/project/rcmpy/))
 
 [![python](https://img.shields.io/pypi/pyversions/rcmpy.svg)](https://pypi.org/project/rcmpy/)
 ![Build Status](https://github.com/vkottler/rcmpy/workflows/Python%20Package/badge.svg)
@@ -119,7 +119,8 @@ location, or:
 ```
 $ ./venv3.11/bin/rcmpy -h
 
-usage: rcmpy [-h] [--version] [-v] [-C DIR] {apply,use,variant,watch,noop} ...
+usage: rcmpy [-h] [--version] [-v] [-C DIR]
+             {apply,dump,use,variant,watch,noop} ...
 
 A configuration-file management system.
 
@@ -130,10 +131,11 @@ options:
   -C DIR, --dir DIR     execute from a specific directory
 
 commands:
-  {apply,use,variant,watch,noop}
+  {apply,dump,use,variant,watch,noop}
                         set of available commands
     apply               apply any pending changes from the active data
                         repository
+    dump                dump template data to stdout as JSON
     use                 set the directory to use as the rcmpy data repository
     variant             set the variant of configuration data to use
     watch               do a task whenever a file in a specified directory
@@ -155,6 +157,18 @@ options:
   -h, --help     show this help message and exit
   -f, --force    whether or not to forcibly render all outputs
   -d, --dry-run  whether or not to update output files
+
+```
+
+### `dump`
+
+```
+$ ./venv3.11/bin/rcmpy dump -h
+
+usage: rcmpy dump [-h]
+
+options:
+  -h, --help  show this help message and exit
 
 ```
 
