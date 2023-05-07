@@ -45,6 +45,8 @@ class Config(_RcmpyDictCodec, _BasicDictCodec):
                 Path(expandvars(file["directory"])).expanduser(),
                 file.get("name", file["template"]),
                 file["link"],
+                file["executable"],
+                file["condition"],
                 set(file.get("platforms", [])),
             )
 
@@ -54,7 +56,3 @@ class Config(_RcmpyDictCodec, _BasicDictCodec):
                 self.templates.add(template)
 
             self.files.append(new)
-
-    def asdict(self) -> _JsonObject:
-        """Obtain a dictionary representing this instance."""
-        return self.data

@@ -3,6 +3,7 @@ An environment extension for working with template files.
 """
 
 # built-in
+from copy import copy
 from pathlib import Path
 from typing import Dict, NamedTuple, Optional, Set, Tuple
 
@@ -15,6 +16,7 @@ from vcorelib.paths.info_cache import FileChanged, file_info_cache
 # internal
 from rcmpy.config import ManagedFile
 from rcmpy.environment.base import BaseEnvironment
+from rcmpy.environment.data import system_data
 
 
 class EnvTemplate(NamedTuple):
@@ -170,5 +172,11 @@ class TemplateEnvironment(BaseEnvironment):
         # Templates that are newly updated on this iteration.
         self.updated_templates: Set[Path] = set()
         self.updated_template_names: Set[str] = set()
+
+        # Add additional information to template data.
+        self.env_data = system_data()
+        self.template_data = copy(self.state.configs)
+        assert "env" not in self.template_data
+        self.template_data["env"] = self.env_data
 
         return result and self._init_templates(self.config.templates)

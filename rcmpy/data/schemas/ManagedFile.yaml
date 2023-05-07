@@ -17,8 +17,19 @@ properties:
     type: boolean
     default: true
 
+  # Whether or not the file should be executable.
+  executable:
+    type: boolean
+    default: false
+
   name:
     type: string
+
+  # A string that will be evaluated for True/False and provided environment
+  # data.
+  condition:
+    type: string
+    default: "True"
 
   platforms:
     type: array
