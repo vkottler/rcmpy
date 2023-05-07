@@ -174,8 +174,9 @@ class TemplateEnvironment(BaseEnvironment):
         self.updated_template_names: Set[str] = set()
 
         # Add additional information to template data.
+        self.env_data = system_data()
         self.template_data = copy(self.state.configs)
         assert "env" not in self.template_data
-        self.template_data["env"] = system_data()
+        self.template_data["env"] = self.env_data
 
         return result and self._init_templates(self.config.templates)

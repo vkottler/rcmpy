@@ -46,6 +46,7 @@ class Config(_RcmpyDictCodec, _BasicDictCodec):
                 file.get("name", file["template"]),
                 file["link"],
                 file["executable"],
+                file["condition"],
                 set(file.get("platforms", [])),
             )
 

@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from shutil import copyfile
 import sys
-from typing import Set
+from typing import Any, Dict, Set
 
 # third-party
 from vcorelib.logging import LoggerType
@@ -36,6 +36,8 @@ class ManagedFile:
     link: bool
     executable: bool
 
+    condition: str
+
     platforms: Set[str]
 
     @property
@@ -52,6 +54,12 @@ class ManagedFile:
     def platform(self) -> bool:
         """Determine if the platform is correct for handling this file."""
         return not self.platforms or sys.platform in self.platforms
+
+    def evaluate(self, env: Dict[str, Any]) -> bool:
+        """Determine if this file should be handled."""
+        return self.platform and eval(  # pylint: disable=eval-used
+            self.condition, None, env
+        )
 
     def update_root(self, root: Path) -> None:
         """

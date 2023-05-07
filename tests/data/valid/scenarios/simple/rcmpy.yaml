@@ -5,6 +5,7 @@ files:
 
   - template: dynamic.txt
     extra_templates: [a.txt, b.txt, c.txt]
+    condition: "'platform' in sys"
 
   - template: basic.txt
     link: false

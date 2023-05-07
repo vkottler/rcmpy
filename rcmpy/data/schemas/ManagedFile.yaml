@@ -25,6 +25,12 @@ properties:
   name:
     type: string
 
+  # A string that will be evaluated for True/False and provided environment
+  # data.
+  condition:
+    type: string
+    default: "True"
+
   platforms:
     type: array
     items:
