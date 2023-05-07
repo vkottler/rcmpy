@@ -2,11 +2,11 @@
     =====================================
     generator=datazen
     version=3.1.2
-    hash=a4e47be8738ab981e11e2267b94bc9fc
+    hash=24348be5017ba83b48349d0ddd2389e4
     =====================================
 -->
 
-# rcmpy ([1.2.0](https://pypi.org/project/rcmpy/))
+# rcmpy ([1.3.0](https://pypi.org/project/rcmpy/))
 
 [![python](https://img.shields.io/pypi/pyversions/rcmpy.svg)](https://pypi.org/project/rcmpy/)
 ![Build Status](https://github.com/vkottler/rcmpy/workflows/Python%20Package/badge.svg)
@@ -117,13 +117,13 @@ location, or:
 # Command-line Options
 
 ```
-$ ./venv3.8/bin/rcmpy -h
+$ ./venv3.11/bin/rcmpy -h
 
 usage: rcmpy [-h] [--version] [-v] [-C DIR] {apply,use,variant,watch,noop} ...
 
 A configuration-file management system.
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   --version             show program's version number and exit
   -v, --verbose         set to increase logging verbosity
@@ -147,11 +147,11 @@ commands:
 ### `apply`
 
 ```
-$ ./venv3.8/bin/rcmpy apply -h
+$ ./venv3.11/bin/rcmpy apply -h
 
 usage: rcmpy apply [-h] [-f] [-d]
 
-optional arguments:
+options:
   -h, --help     show this help message and exit
   -f, --force    whether or not to forcibly render all outputs
   -d, --dry-run  whether or not to update output files
@@ -161,14 +161,14 @@ optional arguments:
 ### `use`
 
 ```
-$ ./venv3.8/bin/rcmpy use -h
+$ ./venv3.11/bin/rcmpy use -h
 
 usage: rcmpy use [-h] [-d] [directory]
 
 positional arguments:
   directory      the directory to use
 
-optional arguments:
+options:
   -h, --help     show this help message and exit
   -d, --default  sets the directory back to the package default
 
@@ -177,14 +177,14 @@ optional arguments:
 ### `variant`
 
 ```
-$ ./venv3.8/bin/rcmpy variant -h
+$ ./venv3.11/bin/rcmpy variant -h
 
 usage: rcmpy variant [-h] [-d] [variant]
 
 positional arguments:
   variant        new variant to use
 
-optional arguments:
+options:
   -h, --help     show this help message and exit
   -d, --default  sets the directory back to the package default
 
@@ -193,7 +193,7 @@ optional arguments:
 ### `watch`
 
 ```
-$ ./venv3.8/bin/rcmpy watch -h
+$ ./venv3.11/bin/rcmpy watch -h
 
 usage: rcmpy watch [-h] [-p POLL_RATE] [-s] [-i] directory cmd [cmd ...]
 
@@ -201,7 +201,7 @@ positional arguments:
   directory             directory to watch for file changes
   cmd                   command to run
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   -p POLL_RATE, --poll-rate POLL_RATE
                         poll period in seconds (default: 0.1s)
