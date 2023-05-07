@@ -5,15 +5,14 @@ An entry-point for the 'apply' command.
 # built-in
 from argparse import ArgumentParser as _ArgumentParser
 from argparse import Namespace as _Namespace
-from logging import getLogger
 
 # third-party
 from vcorelib.args import CommandFunction as _CommandFunction
-from vcorelib.logging import log_time
 from vcorelib.paths import rel
 
 # internal
-from rcmpy.environment import Environment, load_environment
+from rcmpy.commands.common import run_env_command
+from rcmpy.environment import Environment
 
 
 def apply_env(args: _Namespace, env: Environment) -> int:
@@ -56,15 +55,7 @@ def apply_env(args: _Namespace, env: Environment) -> int:
 
 def apply_cmd(args: _Namespace) -> int:
     """Execute the apply command."""
-
-    result = 1
-
-    with log_time(getLogger(__name__), "Command"):
-        with load_environment() as env:
-            if env.config_loaded:
-                result = apply_env(args, env)
-
-    return result
+    return run_env_command(args, apply_env)
 
 
 def add_apply_cmd(parser: _ArgumentParser) -> _CommandFunction:

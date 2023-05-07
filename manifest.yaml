@@ -31,6 +31,7 @@ renders:
       - renders-python_readme_dep_graph.md
       - commands-help
       - commands-help-apply
+      - commands-help-dump
       - commands-help-use
       - commands-help-variant
       - commands-help-watch
