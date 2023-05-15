@@ -50,7 +50,9 @@ async def entry(stop_sig: Event, args: _Namespace) -> int:
         count += 1
         return True
 
-    with file_info_cache(cache_file, poll_cb, logger=LOG) as files:
+    with file_info_cache(
+        cache_file, poll_cb, logger=LOG, check_contents=not args.no_change
+    ) as files:
         while not stop_sig.is_set():
             files.poll_directory(args.directory, base=args.dir)
             files.poll_existing(base=args.dir)
@@ -98,6 +100,15 @@ def add_watch_cmd(parser: _ArgumentParser) -> _CommandFunction:
         "--single-pass",
         action="store_true",
         help="only run a single iteration",
+    )
+    parser.add_argument(
+        "-n",
+        "--no-change",
+        action="store_true",
+        help=(
+            "don't act on changed files, only the overall "
+            "set of files changing (added or removed)"
+        ),
     )
     parser.add_argument(
         "directory", type=Path, help="directory to watch for file changes"

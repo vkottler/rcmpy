@@ -2,11 +2,11 @@
     =====================================
     generator=datazen
     version=3.1.2
-    hash=c1786731fe10b81b6b18afa242c53257
+    hash=a3c34cf886cf3dbc2f8bf336f6b2d7b5
     =====================================
 -->
 
-# rcmpy ([1.4.0](https://pypi.org/project/rcmpy/))
+# rcmpy ([1.4.1](https://pypi.org/project/rcmpy/))
 
 [![python](https://img.shields.io/pypi/pyversions/rcmpy.svg)](https://pypi.org/project/rcmpy/)
 ![Build Status](https://github.com/vkottler/rcmpy/workflows/Python%20Package/badge.svg)
@@ -209,7 +209,7 @@ options:
 ```
 $ ./venv3.11/bin/rcmpy watch -h
 
-usage: rcmpy watch [-h] [-p POLL_RATE] [-s] [-i] directory cmd [cmd ...]
+usage: rcmpy watch [-h] [-p POLL_RATE] [-s] [-i] [-n] directory cmd [cmd ...]
 
 positional arguments:
   directory             directory to watch for file changes
@@ -221,6 +221,8 @@ options:
                         poll period in seconds (default: 0.1s)
   -s, --shell           set to run a shell command
   -i, --single-pass     only run a single iteration
+  -n, --no-change       don't act on changed files, only the overall set of
+                        files changing (added or removed)
 
 ```
 
