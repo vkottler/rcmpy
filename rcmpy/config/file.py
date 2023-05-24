@@ -12,13 +12,7 @@ from typing import Any, Dict, Set
 
 # third-party
 from vcorelib.logging import LoggerType
-from vcorelib.paths import rel
-
-
-def set_exec_flags(path: Path) -> None:
-    """Set the executable bits, but respect the 'read' bits."""
-    mode = path.stat().st_mode
-    path.chmod(mode | ((mode & 0o444) >> 2))
+from vcorelib.paths import rel, set_exec_flags
 
 
 @dataclass
