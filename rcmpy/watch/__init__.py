@@ -30,8 +30,8 @@ async def command(*args: str, shell: bool = False) -> int:
 
     runner = run_shell if shell else run_command
     proc = await runner(LOG, *args)
-    assert proc.returncode is not None
-    return proc.returncode
+    assert proc.proc.returncode is not None
+    return proc.proc.returncode
 
 
 async def entry(stop_sig: Event, params: WatchParams) -> int:
