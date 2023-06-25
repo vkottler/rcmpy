@@ -2,7 +2,7 @@
     =====================================
     generator=datazen
     version=3.1.2
-    hash=3c7a54d3f5dd7f524b8ad29c1dee448d
+    hash=6b71feec72246dec0666fa600f11f4af
     =====================================
 -->
 
@@ -23,7 +23,6 @@ See also: [generated documentation](https://vkottler.github.io/python/pydoc/rcmp
 
 This package is tested with the following Python minor versions:
 
-* [`python3.7`](https://docs.python.org/3.7/)
 * [`python3.8`](https://docs.python.org/3.8/)
 * [`python3.9`](https://docs.python.org/3.9/)
 * [`python3.10`](https://docs.python.org/3.10/)
