@@ -2,7 +2,7 @@
     =====================================
     generator=datazen
     version=3.1.2
-    hash=6b71feec72246dec0666fa600f11f4af
+    hash=76411ac0d2404b435768bd0dd52936e8
     =====================================
 -->
 
@@ -16,8 +16,14 @@
 
 *A configuration-file management system.*
 
-See also: [generated documentation](https://vkottler.github.io/python/pydoc/rcmpy.html)
-(created with [`pydoc`](https://docs.python.org/3/library/pydoc.html)).
+## Documentation
+
+### Generated
+
+* By [sphinx-apidoc](https://vkottler.github.io/python/sphinx/rcmpy)
+(What's [`sphinx-apidoc`](https://www.sphinx-doc.org/en/master/man/sphinx-apidoc.html)?)
+* By [pydoc](https://vkottler.github.io/python/pydoc/rcmpy.html)
+(What's [`pydoc`](https://docs.python.org/3/library/pydoc.html)?)
 
 ## Python Version Support
 
