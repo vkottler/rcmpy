@@ -2,7 +2,7 @@
     =====================================
     generator=datazen
     version=3.1.2
-    hash=1378c10a9410bc7e897df3efc11350c1
+    hash=d1e740f3138eed98a0eae160ce6a1d6e
     =====================================
 -->
 
@@ -29,8 +29,6 @@
 
 This package is tested with the following Python minor versions:
 
-* [`python3.8`](https://docs.python.org/3.8/)
-* [`python3.9`](https://docs.python.org/3.9/)
 * [`python3.10`](https://docs.python.org/3.10/)
 * [`python3.11`](https://docs.python.org/3.11/)
 
@@ -124,7 +122,7 @@ location, or:
 ```
 $ ./venv3.11/bin/rcmpy -h
 
-usage: rcmpy [-h] [--version] [-v] [-C DIR]
+usage: rcmpy [-h] [--version] [-v] [-q] [--curses] [--no-uvloop] [-C DIR]
              {apply,dump,use,variant,watch,noop} ...
 
 A configuration-file management system.
@@ -133,6 +131,9 @@ options:
   -h, --help            show this help message and exit
   --version             show program's version number and exit
   -v, --verbose         set to increase logging verbosity
+  -q, --quiet           set to reduce output
+  --curses              whether or not to use curses.wrapper when starting
+  --no-uvloop           whether or not to disable uvloop as event loop driver
   -C DIR, --dir DIR     execute from a specific directory
 
 commands:
