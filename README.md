@@ -1,8 +1,8 @@
 <!--
     =====================================
     generator=datazen
-    version=3.1.2
-    hash=d1e740f3138eed98a0eae160ce6a1d6e
+    version=3.1.4
+    hash=ccf37800b39af9e691329ce0f73da7fa
     =====================================
 -->
 
@@ -31,6 +31,7 @@ This package is tested with the following Python minor versions:
 
 * [`python3.10`](https://docs.python.org/3.10/)
 * [`python3.11`](https://docs.python.org/3.11/)
+* [`python3.12`](https://docs.python.org/3.12/)
 
 ## Platform Support
 
@@ -120,9 +121,9 @@ location, or:
 # Command-line Options
 
 ```
-$ ./venv3.11/bin/rcmpy -h
+$ ./venv3.12/bin/rcmpy -h
 
-usage: rcmpy [-h] [--version] [-v] [-q] [--curses] [--no-uvloop] [-C DIR]
+usage: rcmpy [-h] [--version] [-v] [-C DIR]
              {apply,dump,use,variant,watch,noop} ...
 
 A configuration-file management system.
@@ -131,9 +132,6 @@ options:
   -h, --help            show this help message and exit
   --version             show program's version number and exit
   -v, --verbose         set to increase logging verbosity
-  -q, --quiet           set to reduce output
-  --curses              whether or not to use curses.wrapper when starting
-  --no-uvloop           whether or not to disable uvloop as event loop driver
   -C DIR, --dir DIR     execute from a specific directory
 
 commands:
@@ -155,7 +153,7 @@ commands:
 ### `apply`
 
 ```
-$ ./venv3.11/bin/rcmpy apply -h
+$ ./venv3.12/bin/rcmpy apply -h
 
 usage: rcmpy apply [-h] [-f] [-d]
 
@@ -169,7 +167,7 @@ options:
 ### `dump`
 
 ```
-$ ./venv3.11/bin/rcmpy dump -h
+$ ./venv3.12/bin/rcmpy dump -h
 
 usage: rcmpy dump [-h]
 
@@ -181,7 +179,7 @@ options:
 ### `use`
 
 ```
-$ ./venv3.11/bin/rcmpy use -h
+$ ./venv3.12/bin/rcmpy use -h
 
 usage: rcmpy use [-h] [-d] [directory]
 
@@ -197,7 +195,7 @@ options:
 ### `variant`
 
 ```
-$ ./venv3.11/bin/rcmpy variant -h
+$ ./venv3.12/bin/rcmpy variant -h
 
 usage: rcmpy variant [-h] [-d] [variant]
 
@@ -213,7 +211,7 @@ options:
 ### `watch`
 
 ```
-$ ./venv3.11/bin/rcmpy watch -h
+$ ./venv3.12/bin/rcmpy watch -h
 
 usage: rcmpy watch [-h] [-p POLL_RATE] [-s] [-i] [-n] directory cmd [cmd ...]
 
