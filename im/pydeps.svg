@@ -913,7 +913,7 @@
 <!-- vcorelib_logging -->
 <g id="node36" class="node">
 <title>vcorelib_logging</title><style>.edge>path:hover{stroke-width:8}</style>
-<ellipse fill="#7f06f9" stroke="black" cx="931" cy="-1999.29" rx="41.94" ry="21.43"/>
+<ellipse fill="#7a06ef" stroke="black" cx="931" cy="-1999.29" rx="41.94" ry="21.43"/>
 <text text-anchor="middle" x="931" y="-2002.29" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#ffffff">vcorelib.</text>
 <text text-anchor="middle" x="931" y="-1991.29" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#ffffff">logging</text>
 </g>
@@ -922,14 +922,14 @@
 <title>vcorelib_logging&#45;&gt;rcmpy_commands_common</title><style>.edge>path:hover{stroke-width:8}</style>
 <path fill="none" stroke="black" d="M972.46,-1996.86C1101.66,-1990.05 1488.06,-1950.55 1483,-1722.09"/>
 <path fill="none" stroke="black" d="M1483,-1720.09C1486.32,-1687.57 1446.85,-1696.21 1432,-1667.09 1410.18,-1624.29 1413,-1608.72 1413,-1560.67 1413,-1560.67 1413,-1560.67 1413,-1182.74 1413,-1125.88 1383.44,-1115.26 1342,-1076.32 1318.78,-1054.5 1298.18,-1066.49 1280,-1040.32 1251.45,-999.22 1261,-979.38 1261,-929.34 1261,-929.34 1261,-929.34 1261,-873.34 1261,-789.06 1283.4,-755.06 1236,-685.37 1172.88,-592.58 1045.12,-542.72 970.91,-520.52"/>
-<polygon fill="#7f06f9" stroke="black" points="971.83,-517.14 961.25,-517.7 969.87,-523.86 971.83,-517.14"/>
+<polygon fill="#7a06ef" stroke="black" points="971.83,-517.14 961.25,-517.7 969.87,-523.86 971.83,-517.14"/>
 </g>
 <!-- vcorelib_logging&#45;&gt;rcmpy_config_file -->
 <g id="edge102" class="edge">
 <title>vcorelib_logging&#45;&gt;rcmpy_config_file</title><style>.edge>path:hover{stroke-width:8}</style>
 <path fill="none" stroke="black" d="M152,-1923.07C107.86,-1894.76 152,-1857.52 152,-1805.08 152,-1805.08 152,-1805.08 152,-1720.09 152,-1609.47 269.39,-1350.81 312,-1248.73 324.25,-1219.39 334.05,-1214.94 344,-1184.74"/>
 <path fill="none" stroke="black" d="M344,-1182.74C352.11,-1135.81 367.66,-1083.16 378.65,-1048.97"/>
-<polygon fill="#7f06f9" stroke="black" points="381.99,-1050 381.76,-1039.41 375.34,-1047.83 381.99,-1050"/>
+<polygon fill="#7a06ef" stroke="black" points="381.99,-1050 381.76,-1039.41 375.34,-1047.83 381.99,-1050"/>
 </g>
 <!-- vcorelib_logging&#45;&gt;rcmpy_entry -->
 <g id="edge103" class="edge">
@@ -943,32 +943,32 @@
 <path fill="none" stroke="black" d="M152,-1923.07C99.11,-1891.55 66.69,-1914.45 24,-1870.07 2.65,-1847.88 0,-1835.87 0,-1805.08 0,-1805.08 0,-1805.08 0,-1558.67 0,-1408.3 91.76,-1392.57 190,-1278.72"/>
 <path fill="none" stroke="black" d="M190,-1276.72C220.74,-1233.51 254.68,-1236.55 266,-1184.74"/>
 <path fill="none" stroke="black" d="M266,-1182.74C293.86,-1055.18 264.94,-978.99 376,-910.34 482.1,-844.75 528.97,-877.69 647,-837.34 651.87,-835.68 656.89,-833.83 661.89,-831.9"/>
-<polygon fill="#7f06f9" stroke="black" points="663.42,-835.06 671.43,-828.12 660.85,-828.55 663.42,-835.06"/>
+<polygon fill="#7a06ef" stroke="black" points="663.42,-835.06 671.43,-828.12 660.85,-828.55 663.42,-835.06"/>
 </g>
 <!-- vcorelib_logging&#45;&gt;vcorelib_asyncio -->
 <g id="edge105" class="edge">
 <title>vcorelib_logging&#45;&gt;vcorelib_asyncio</title><style>.edge>path:hover{stroke-width:8}</style>
 <path fill="none" stroke="black" d="M1483,-1720.09C1483,-1706.19 1483,-1690.8 1483,-1677.73"/>
-<polygon fill="#7f06f9" stroke="black" points="1486.5,-1677.39 1483,-1667.39 1479.5,-1677.39 1486.5,-1677.39"/>
+<polygon fill="#7a06ef" stroke="black" points="1486.5,-1677.39 1483,-1667.39 1479.5,-1677.39 1486.5,-1677.39"/>
 </g>
 <!-- vcorelib_logging&#45;&gt;vcorelib_asyncio_cli -->
 <g id="edge106" class="edge">
 <title>vcorelib_logging&#45;&gt;vcorelib_asyncio_cli</title><style>.edge>path:hover{stroke-width:8}</style>
 <path fill="none" stroke="black" d="M1483,-1720.09C1483,-1687.4 1519.61,-1696.44 1534,-1667.09 1610.82,-1510.46 1617.36,-1451.18 1591,-1278.72"/>
 <path fill="none" stroke="black" d="M1591,-1276.72C1585.25,-1252.87 1569.02,-1230.82 1553.64,-1214.29"/>
-<polygon fill="#7f06f9" stroke="black" points="1556.14,-1211.84 1546.67,-1207.1 1551.12,-1216.71 1556.14,-1211.84"/>
+<polygon fill="#7a06ef" stroke="black" points="1556.14,-1211.84 1546.67,-1207.1 1551.12,-1216.71 1556.14,-1211.84"/>
 </g>
 <!-- vcorelib_logging&#45;&gt;vcorelib_dict -->
 <g id="edge107" class="edge">
 <title>vcorelib_logging&#45;&gt;vcorelib_dict</title><style>.edge>path:hover{stroke-width:8}</style>
 <path fill="none" stroke="black" d="M931,-1977.89C931,-1970.04 931,-1960.94 931,-1952.52"/>
-<polygon fill="#7f06f9" stroke="black" points="934.5,-1952.38 931,-1942.38 927.5,-1952.38 934.5,-1952.38"/>
+<polygon fill="#7a06ef" stroke="black" points="934.5,-1952.38 931,-1942.38 927.5,-1952.38 934.5,-1952.38"/>
 </g>
 <!-- vcorelib_logging&#45;&gt;vcorelib_io_types -->
 <g id="edge108" class="edge">
 <title>vcorelib_logging&#45;&gt;vcorelib_io_types</title><style>.edge>path:hover{stroke-width:8}</style>
 <path fill="none" stroke="black" d="M152,-1923.07C92.7,-1871.13 402.15,-1826.72 527.83,-1811.08"/>
-<polygon fill="#7f06f9" stroke="black" points="528.48,-1814.53 537.98,-1809.83 527.63,-1807.58 528.48,-1814.53"/>
+<polygon fill="#7a06ef" stroke="black" points="528.48,-1814.53 537.98,-1809.83 527.63,-1807.58 528.48,-1814.53"/>
 </g>
 <!-- vcorelib_paths -->
 <g id="node37" class="node">
