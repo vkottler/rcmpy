@@ -69,7 +69,7 @@ jobs:
 
       - run: |
           mk python-release owner=vkottler \
-                            repo=rcmpy version=1.5.4
+                            repo=rcmpy version=1.5.5
         if: |
           matrix.python-version == '3.11'
           && matrix.system == 'ubuntu-latest'

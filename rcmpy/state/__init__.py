@@ -208,7 +208,9 @@ def load_state(
     if root is None:
         root = default_state_directory()
 
-    with FileCache(normalize(root, name)).loaded() as data:
+    with ExitStack() as stack:
+        data = stack.enter_context(FileCache(normalize(root, name)).loaded())
+
         state = State.create(data, verify=False)
         yield state
 
