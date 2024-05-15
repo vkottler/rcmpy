@@ -2,11 +2,11 @@
     =====================================
     generator=datazen
     version=3.1.4
-    hash=4a63d867ef56ebbd2d59aaddb06364c5
+    hash=625e7606ffc71be06c919432e86f94e2
     =====================================
 -->
 
-# rcmpy ([1.5.4](https://pypi.org/project/rcmpy/))
+# rcmpy ([1.5.5](https://pypi.org/project/rcmpy/))
 
 [![python](https://img.shields.io/pypi/pyversions/rcmpy.svg)](https://pypi.org/project/rcmpy/)
 ![Build Status](https://github.com/vkottler/rcmpy/workflows/Python%20Package/badge.svg)
@@ -123,7 +123,7 @@ location, or:
 ```
 $ ./venv3.12/bin/rcmpy -h
 
-usage: rcmpy [-h] [--version] [-v] [-C DIR]
+usage: rcmpy [-h] [--version] [-v] [-q] [--curses] [--no-uvloop] [-C DIR]
              {apply,dump,use,variant,watch,noop} ...
 
 A configuration-file management system.
@@ -132,6 +132,9 @@ options:
   -h, --help            show this help message and exit
   --version             show program's version number and exit
   -v, --verbose         set to increase logging verbosity
+  -q, --quiet           set to reduce output
+  --curses              whether or not to use curses.wrapper when starting
+  --no-uvloop           whether or not to disable uvloop as event loop driver
   -C DIR, --dir DIR     execute from a specific directory
 
 commands:
